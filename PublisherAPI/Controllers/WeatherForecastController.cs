@@ -1,10 +1,12 @@
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
+using System.Text.Json;
 namespace PublisherAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController(ILogger<WeatherForecastController> logger, IPublishEndpoint publishEndpoint) : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -13,21 +15,19 @@ namespace PublisherAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var wheatherData = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+            await publishEndpoint.Publish(new MyMessage(JsonSerializer.Serialize(wheatherData)));
+            return wheatherData;
         }
-    }
+    } 
 }
