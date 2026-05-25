@@ -2,7 +2,6 @@
 
 RabbitMQ is a lightweight, reliable message broker often used in **.NET microservices** for asynchronous communication, decoupling, and scalability.
 
----
 
 ## ✅ Benefits
 - **[Loose Coupling](ca://s?q=RabbitMQ_loose_coupling_in_microservices)** → Services communicate asynchronously, reducing dependency on availability.  
@@ -11,7 +10,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 - **[Flexibility](ca://s?q=RabbitMQ_flexibility_features)** → Supports pub-sub, work queues, RPC, and event-driven patterns.  
 - **[Integration](ca://s?q=RabbitMQ_.NET_integration)** → Works seamlessly with MassTransit, ASP.NET Core, and cloud-native deployments.  
 
----
 
 ## 🔴 Limitations
 - **[Operational Complexity](ca://s?q=RabbitMQ_operational_complexity)** → Requires monitoring, clustering, and tuning.  
@@ -19,8 +17,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 - **[Consistency](ca://s?q=RabbitMQ_consistency_limitations)** → Eventual consistency; not suitable for strict ACID workflows.  
 - **[Scaling Broker](ca://s?q=RabbitMQ_scaling_broker)** → RabbitMQ can bottleneck under extreme throughput compared to Kafka.  
 - **[Learning Curve](ca://s?q=RabbitMQ_learning_curve)** → Developers must understand exchanges, bindings, and routing keys.  
-
----
 
 ## 🌟 Features
 - **[Exchanges](ca://s?q=RabbitMQ_exchanges)** → Direct, Fanout, Topic, Headers for routing.  
@@ -41,7 +37,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *What if strict consistency is required?*  
 **Answer:** Use transactional outbox patterns or synchronous APIs for critical paths, while RabbitMQ handles non-critical async tasks.
 
----
 
 ### Q2: How do you ensure reliability in RabbitMQ?
 **Answer:** Durable queues, persistent messages, acknowledgements, retries, and DLQs. Consumers must be idempotent to avoid duplicate processing.  
@@ -49,7 +44,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *How do you handle poison messages?*  
 **Answer:** Poison messages go to DLQ. We monitor DLQ, fix consumer logic, and reprocess after correction.
 
----
 
 ### Q3: How do you scale RabbitMQ consumers in .NET?
 **Answer:** Deploy multiple instances of ConsumerAPI. RabbitMQ distributes messages via competing consumers. Use **prefetch count** to balance load.  
@@ -57,7 +51,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *What if one consumer is slower?*  
 **Answer:** Adjust **prefetch count**, use consumer priority, and monitor throughput with RabbitMQ Management UI.
 
----
 
 ### Q4: When would you avoid RabbitMQ?
 **Answer:** Avoid RabbitMQ in simple CRUD apps, low-latency synchronous workflows, or when strong consistency is mandatory. Kafka or direct APIs may be better.  
@@ -65,7 +58,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *Why Kafka instead of RabbitMQ for high throughput?*  
 **Answer:** Kafka is optimized for event streaming and partitioned logs, handling millions of events per second. RabbitMQ is better for transactional, smaller-scale messaging.
 
----
 
 # 🟢 Scenario-Based Q&A
 
@@ -78,7 +70,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *What if PaymentService fails after consuming?*  
 **Answer:** Use acknowledgements only after success, retry policies, DLQ, and idempotent consumers.
 
----
 
 ## Scenario 2: Retry & Dead-Letter Queue Handling
 **Answer:** Configure MassTransit retry policies (immediate, incremental, exponential). Poison messages go to DLQ.  
@@ -86,7 +77,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *How do you reprocess DLQ messages?*  
 **Answer:** Replay DLQ after fixing consumer logic or build DLQ reprocessor service.
 
----
 
 ## Scenario 3: Scaling Consumers
 **Answer:** Deploy multiple ConsumerAPI instances. RabbitMQ load-balances via competing consumers.  
@@ -94,7 +84,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *What if one consumer is slower?*  
 **Answer:** Adjust prefetch count, use consumer priority, monitor throughput.
 
----
 
 ## Scenario 4: Monitoring & Observability
 **Answer:** Use RabbitMQ Management UI, Prometheus + Grafana.  
@@ -102,7 +91,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *What metrics are most critical?*  
 **Answer:** Queue depth, consumer throughput, unacked messages, DLQ size.
 
----
 
 ## Scenario 5: When Not to Use RabbitMQ
 **Answer:** Avoid in synchronous workflows, strong consistency, or high-throughput streaming.  
@@ -110,7 +98,6 @@ RabbitMQ is a lightweight, reliable message broker often used in **.NET microser
 **Cross Question:** *How do you decide between RabbitMQ and Kafka?*  
 **Answer:** RabbitMQ → transactional workloads. Kafka → event streaming, analytics, millions of events/sec.
 
----
 
 # 📊 Summary Table
 
@@ -154,7 +141,4 @@ This diagram illustrates how **PublisherAPI** and **ConsumerAPI** interact throu
 - Handles serialization, routing, and retries.
 - Connects publisher and consumer seamlessly.
 
----
-
-## 🔄 Message Flow Diagram
 
